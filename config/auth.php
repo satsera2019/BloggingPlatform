@@ -75,6 +75,11 @@ return [
         // ],
     ],
 
+    'models' => [
+        'role' => Spatie\Permission\Models\Role::class,
+        'permission' => Spatie\Permission\Models\Permission::class,
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Resetting Passwords
