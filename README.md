@@ -13,7 +13,7 @@
 - [Each blog post should have a title, body, author, views, and t2mestamp].
 
 ## Comments:
-= [Only authenJcated users can add comments to a blog post].
+- [Only authenJcated users can add comments to a blog post].
 - [Logged-in users should be able to delete their own comments].
 
 ## Seeders:
