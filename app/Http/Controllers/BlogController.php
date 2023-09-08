@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\AdminPanel;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\AdminPanel\CreatePostRequest;
+use App\Http\Requests\CreateCommentRequest;
+use App\Http\Requests\CreatePostRequest;
 use App\Models\Blog;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class BlogController extends Controller
     public function index()
     {
         $posts = Blog::latest()->paginate(10);
-        return view('admin-panel.blogs.index', compact('posts'));
+        return view('blogs.index', compact('posts'));
     }
 
     /**
@@ -24,7 +25,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return view('admin-panel.blogs.create');
+        return view('blogs.create');
     }
 
     /**
@@ -37,15 +38,15 @@ class BlogController extends Controller
             'text' => $request->text,
             'author_id' => Auth::user()->id,
         ]);
-        return redirect()->route('admin-panel.blogs.index')->with('success', 'Post created successfully');
+        return redirect()->route('blogs.index')->with('success', 'Post created successfully');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Blog $blog)
+    public function showBlog(Blog $blog)
     {
-        return view('admin-panel.blogs.show', compact('blog'));
+        return view('blogs.show', compact('blog'));
     }
 
     /**
@@ -53,7 +54,7 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return view('admin-panel.blogs.edit', compact('blog'));
+        return view('blogs.edit', compact('blog'));
     }
 
     /**
@@ -62,7 +63,7 @@ class BlogController extends Controller
     public function update(CreatePostRequest $request, Blog $blog)
     {
         $blog->update($request->all());
-        return redirect()->route('admin-panel.blogs.index')->with('success', 'Post updated successfully');
+        return redirect()->route('blogs.index')->with('success', 'Post updated successfully');
     }
 
     /**
@@ -71,6 +72,6 @@ class BlogController extends Controller
     public function destroy(Blog $blog)
     {
         $blog->delete();
-        return redirect()->route('admin-panel.blogs.index')->with('success', 'Post deleted successfully');
+        return redirect()->route('blogs.index')->with('success', 'Post deleted successfully');
     }
 }

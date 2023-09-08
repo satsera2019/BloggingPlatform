@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\AdminPanel;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
@@ -36,15 +36,15 @@ class CreateUserRequest extends FormRequest
                     ->symbols()
                     ->uncompromised(),
             ],
-            'password_confirmation' =>  [
-                'required',
-                'same:password',
-                Password::min(6)
-                    ->mixedCase()
-                    ->numbers()
-                    ->symbols()
-                    ->uncompromised(),
-            ],
+            // 'password_confirmation' =>  [
+            //     'required',
+            //     'same:password',
+            //     Password::min(6)
+            //         ->mixedCase()
+            //         ->numbers()
+            //         ->symbols()
+            //         ->uncompromised(),
+            // ],
         ];
     }
 }

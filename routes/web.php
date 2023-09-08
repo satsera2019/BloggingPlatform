@@ -3,8 +3,8 @@
 use App\Http\Controllers\AdminPanel\AuthController as AdminPanelAuthController;
 use App\Http\Controllers\AdminPanel\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminPanel\BlogController;
-use App\Http\Controllers\UserPanel\AuthController as UserPanelAuthController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,61 +18,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
 
-// Route::prefix('blog')->name('blog.')->group(function () {
+Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register.form');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('blogs')->name('blogs.')->group(function () {
+        Route::get('/', [BlogController::class, 'index'])->name('index')->middleware('permission:view post');
+        Route::get('/create', [BlogController::class, 'create'])->name('create')->middleware('permission:publish post');
+        Route::post('/store', [BlogController::class, 'store'])->name('store')->middleware('permission:publish post');
+        Route::get('/{blog}/edit', [BlogController::class, 'edit'])->name('edit')->middleware('permission:edit post');
+        Route::put('/{blog}', [BlogController::class, 'update'])->name('update')->middleware('permission:edit post');
+        Route::delete('/{blog}', [BlogController::class, 'destroy'])->name('destroy')->middleware('permission:delete post');
 
-// Route::prefix('admin-panel')->name('admin-panel.')->group(function () {
-//     Route::prefix('users')->name('users.')->group(function () {
-//         Route::get('/', [UserController::class, 'index'])->name('index');
-//         Route::get('/create', [UserController::class, 'create'])->name('create');
-//         Route::post('/store', [UserController::class, 'store'])->name('store');
-//         Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
-//         Route::put('/{user}', [UserController::class, 'update'])->name('update');
-//         Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
-//     });
-// });
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-
-
-Route::prefix('user-panel')->name('user-panel.')->group(function () {
-    Route::get('/', [UserPanelAuthController::class, 'showLoginForm'])->name('login.form');
-    Route::get('/register', [UserPanelAuthController::class, 'showRegisterForm'])->name('register.form');
-    Route::post('/register', [UserPanelAuthController::class, 'showRegisterForm'])->name('register');
-
-    // Route::group(['middleware' => ['role:user']], function () {
-    //     Route::get('/', [AdminPanelAuthController::class, 'showLoginForm'])->name('login.form');
-    // });
-});
-
-Route::prefix('admin-panel')->name('admin-panel.')->group(function () {
-    Route::get('/', [AdminPanelAuthController::class, 'showLoginForm'])->name('login.form');
-    Route::post('/login', [AdminPanelAuthController::class, 'login'])->name('login');
-
-    Route::group(['middleware' => ['role:admin']], function () {
-        Route::post('/admin/logout', [AdminPanelAuthController::class, 'logout'])->name('logout');
-
-        Route::prefix('blogs')->name('blogs.')->group(function () {
-            Route::get('/', [BlogController::class, 'index'])->name('index');
-            Route::get('/create', [BlogController::class, 'create'])->name('create');
-            Route::post('/store', [BlogController::class, 'store'])->name('store');
-            Route::get('/{blog}/edit', [BlogController::class, 'edit'])->name('edit');
-            Route::put('/{blog}', [BlogController::class, 'update'])->name('update');
-            Route::delete('/{blog}', [BlogController::class, 'destroy'])->name('destroy');
-        });
+        Route::get('/show/{blog}', [BlogController::class, 'showBlog'])->name('show')->middleware('permission:view post');
     });
-});
 
-Route::group(['middleware' => ['role:editor']], function () {
-});
-
-Route::group(['middleware' => ['role:user']], function () {
+    Route::prefix('comment')->name('comment.')->group(function () {
+        Route::post('/{blog}', [CommentController::class, 'addComment'])->name('add')->middleware('permission:comment post');
+        Route::delete('/{comment}', [CommentController::class, 'destroy'])->name('destroy')->middleware('permission:delete comment');
+    });
 });

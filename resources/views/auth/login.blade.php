@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Login</title>
     <!-- Include AdminLTE CSS and additional styles here -->
-    {{-- <link rel="stylesheet" href="{{ asset('adminlte/css/adminlte.min.css') }}"> --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
     <!-- Add any custom styles specific to your login page -->
 </head>
@@ -23,7 +22,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                <form action="{{ route('admin-panel.login') }}" method="POST">
+                <form action="{{ route('login') }}" method="POST">
                     @csrf
 
                     <div class="input-group mb-3">
@@ -58,7 +57,7 @@
                         <!-- /.col -->
 
                         <div class="col-4">
-                            <a href="{{ route('user-panel.register.form') }}">Register</a>
+                            <a href="{{ route('register.form') }}">Register</a>
                         </div>
 
 
@@ -75,7 +74,6 @@
     <!-- /.login-box -->
 
     <!-- Include AdminLTE JS and additional scripts here -->
-    {{-- <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/js/adminlte.min.js"></script>
     <!-- Add any custom scripts specific to your login page -->
 </body>

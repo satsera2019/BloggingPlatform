@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\AdminPanel;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreatePostRequest extends FormRequest
+class CreateCommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +22,7 @@ class CreatePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|max:255',
-            'text' => 'required|string',
+            'content' => 'required|string',
         ];
     }
 }

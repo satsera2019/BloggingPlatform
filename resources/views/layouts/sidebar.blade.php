@@ -17,12 +17,24 @@
                     </a> --}}
                 </li>
                 <!-- Blog Posts Link -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                    <div class="image">
+                        {{-- <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image"> --}}
+                        <i class="fa fa-user text-white" aria-hidden="true"></i>
+                    </div>
+                    <div class="info">
+                        <a href="#" class="d-block">Alexander Pierce</a>
+                    </div>
+                </div>
+
+                {{-- @can('edit articles') --}}
                 <li class="nav-item">
-                    <a href="{{ route('admin-panel.blogs.index') }}" class="nav-link">
+                    <a href="{{ route('blogs.index') }}" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>
                         <p>Blog Posts</p>
                     </a>
                 </li>
+                {{-- @endcan --}}
 
                 {{-- <li class="nav-item">
                     <a href="{{ route('admin-panel.users.index') }}" class="nav-link">

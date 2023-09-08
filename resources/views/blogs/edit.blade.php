@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('admin-panel.blogs.update', $blog->id) }}" method="POST">
+                            <form action="{{ route('blogs.update', $blog->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
 

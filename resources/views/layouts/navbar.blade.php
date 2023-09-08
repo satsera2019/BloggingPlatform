@@ -10,11 +10,12 @@
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
         <!-- User Dropdown Menu -->
-        <a href="{{ route('admin-panel.logout') }}" class="dropdown-item"
+        {{ auth()->user()->first_name }} {{ auth()->user()->last_name }}
+        <a href="{{ route('logout') }}" class="dropdown-item"
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="fas fa-sign-out-alt mr-2"></i> Logout
         </a>
-        <form id="logout-form" action="{{ route('admin-panel.logout') }}" method="POST" style="display: none;">
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
             @csrf
         </form>
         <!-- End User Dropdown Menu -->

@@ -11,10 +11,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">User List</h3>
-                    <div class="card-tools">
-                        <a href="{{ route('admin-panel.blogs.create') }}" class="btn btn-primary">Add Post</a>
-                    </div>
+                    <h3 class="card-title">Blog List</h3>
+                    @can('publish post')
+                        <div class="card-tools">
+                            <a href="{{ route('blogs.create') }}" class="btn btn-primary">Add Post</a>
+                        </div>
+                    @endcan
                 </div>
                 <div class="card-body">
                     <table class="table table-bordered">
@@ -39,15 +41,24 @@
                                     <td>{{ $post->created_at }}</td>
                                     <td>{{ $post->updated_at }}</td>
                                     <td>
-                                        <a href="{{ route('admin-panel.blogs.edit', $post->id) }}"
-                                            class="btn btn-primary">Edit</a>
-                                        <form action="{{ route('admin-panel.blogs.destroy', $post->id) }}" method="POST"
-                                            style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-danger"
-                                                onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
-                                        </form>
+
+
+                                        @can('edit post')
+                                            <a href="{{ route('blogs.edit', $post->id) }}" class="btn btn-primary">Edit</a>
+                                        @endcan
+                                        @can('delete post')
+                                            <form action="{{ route('blogs.destroy', $post->id) }}" method="POST"
+                                                style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger"
+                                                    onclick="return confirm('Are you sure you want to delete this post?')">Delete</button>
+                                            </form>
+                                        @endcan
+
+                                        @can('view comment')
+                                            <a href="{{ route('blogs.show', $post->id) }}" class="btn btn-primary">View</a>
+                                        @endcan
                                     </td>
                                 </tr>
                             @endforeach

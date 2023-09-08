@@ -18,11 +18,14 @@ class RolesSeeder extends Seeder
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
+        Permission::create(['name' => 'view post']);
         Permission::create(['name' => 'edit post']);
         Permission::create(['name' => 'delete post']);
         Permission::create(['name' => 'publish post']);
         Permission::create(['name' => 'unpublish post']);
 
+
+        Permission::create(['name' => 'view comment']);
         Permission::create(['name' => 'edit comment']);
         Permission::create(['name' => 'delete comment']);
         Permission::create(['name' => 'publish comment']);
@@ -32,14 +35,14 @@ class RolesSeeder extends Seeder
 
         // admin role with permissions
         $role = Role::create(['name' => 'admin']);
-        $role->givePermissionTo(['delete post', 'delete comment']);
+        $role->givePermissionTo(Permission::all());
 
         // editor role with permissions
         $role = Role::create(['name' => 'editor']);
-        $role->givePermissionTo(['edit post', 'delete post', 'publish post', 'unpublish post']);
+        $role->givePermissionTo(['view post', 'edit post', 'delete post', 'publish post', 'unpublish post', 'view comment']);
 
         // user role with permissions
         $role = Role::create(['name' => 'user']);
-        $role->givePermissionTo(['comment post']);
+        $role->givePermissionTo(['comment post', 'delete comment', 'publish post', 'view post', 'view comment']);
     }
 }
