@@ -21,8 +21,9 @@ RolesSeeder,
 CreateAdminSeeder,
 CreateEditorSeeder
 
-## For Roles and Permissions:
+## Resource:
 
 <a href="https://spatie.be/docs/laravel-permission/v5/advanced-usage/seeding" target=_blank>Laravel spatie-permission</a>
+<a href="https://drawsql.app/teams/satsera2019/diagrams/bloggingplatform" target=_blank>Drawsql</a>
 
 
